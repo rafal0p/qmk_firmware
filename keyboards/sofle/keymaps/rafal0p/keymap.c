@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB  ,KC_Q     ,KC_W     ,KC_E     ,KC_R     ,KC_T                ,                     KC_Y     ,KC_U     ,KC_I     ,KC_O     ,KC_P     ,KC_EQL   ,
   KC_BSPC ,KC_A     ,KC_S     ,KC_D     ,KC_F     ,KC_G                ,                     KC_H     ,KC_J     ,KC_K     ,KC_L     ,KC_SCLN  ,KC_QUOT  ,
   KC_LSFT ,KC_Z     ,KC_X     ,KC_C     ,KC_V     ,KC_B                ,KC_MUTE   ,XXXXXXX  ,KC_N     ,KC_M     ,KC_COMM  ,KC_DOT   ,KC_SLSH  ,KC_GRV   ,
-                     KC_LGUI  ,KC_LALT  ,KC_LCTRL ,MT(MOD_LSFT,KC_SPC) ,KC_LOWER  ,KC_RCTRL ,KC_ENT   ,KC_RALT  ,KC_RAISE ,KC_RGUI                       
+                     KC_LCTRL ,KC_LGUI  ,KC_LALT  ,MT(MOD_LSFT,KC_SPC) ,KC_LOWER  ,KC_RCTRL ,KC_ENT   ,KC_RALT  ,KC_RAISE ,KC_RGUI                       
 ),
 
 [_LOWER] = LAYOUT(
@@ -172,43 +172,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_BSPC);
             }
             break;
-        case KC_COPY:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_C);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_C);
-            }
-            return false;
-        case KC_PASTE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_V);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_V);
-            }
-            return false;
-        case KC_CUT:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_X);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_X);
-            }
-            return false;
-            break;
-        case KC_UNDO:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_Z);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_Z);
-            }
-            return false;
     }
     return true;
 }
