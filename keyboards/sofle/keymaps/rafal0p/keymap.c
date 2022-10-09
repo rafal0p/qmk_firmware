@@ -348,10 +348,20 @@ void keyboard_post_init_user(void) {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
+        switch (get_highest_layer(layer_state)) {
+            case _LOWER:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
+            default:
+                if (clockwise) {
+                    tap_code16(G(KC_RIGHT_BRACKET));
+                } else {
+                    tap_code16(G(KC_LEFT_BRACKET));
+                }
         }
     } else if (index == 1) {
         if (clockwise) {
