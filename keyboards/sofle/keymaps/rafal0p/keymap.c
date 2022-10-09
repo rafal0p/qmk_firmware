@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC  ,TD(DNC_1), TD(DNC_2) ,TD(DNC_3) ,TD(DNC_4) ,TD(DNC_5)           ,                     TD(DNC_6) ,TD(DNC_7) ,TD(DNC_8)   ,TD(DNC_9)  ,TD(DNC_0)   ,TD(DNC_MINS),
   KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)           ,                     TD(DNC_Y) ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
   KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)           ,                     TD(DNC_H) ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
-  KC_LSFT ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)           ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N) ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_GRV) ,
+  KC_ENT  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)           ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N) ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_GRV) ,
                       KC_LCTRL  ,KC_LGUI   ,KC_LALT   ,MT(MOD_LSFT,KC_SPC) ,KC_LOWER  ,KC_RCTRL ,KC_ENT    ,KC_RALT   ,KC_RAISE    ,KC_RGUI                       
 ),
 
