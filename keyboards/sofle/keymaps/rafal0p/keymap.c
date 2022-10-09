@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+#define ACTION_TAP_DANCE_FN_ADVANCED_USER(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, user_user_data) \
+    { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset}, .user_data = (void *)user_user_data, }
+
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _BASE,
@@ -195,7 +198,8 @@ enum {
     MORE_TAPS
 };
 
-static tap dance_state[2];
+// 69 = KC_F12, nobody should ever need to dance higher
+static tap dance_state[69];
 
 uint8_t dance_step(qk_tap_dance_state_t *state);
 
@@ -211,81 +215,51 @@ uint8_t dance_step(qk_tap_dance_state_t *state) {
     return MORE_TAPS;
 }
 
-void on_dance_z(qk_tap_dance_state_t *state, void *user_data);
-void dance_z_finished(qk_tap_dance_state_t *state, void *user_data);
-void dance_z_reset(qk_tap_dance_state_t *state, void *user_data);
+void on_dance(qk_tap_dance_state_t *state, void *user_data);
+void dance_finished(qk_tap_dance_state_t *state, void *user_data);
+void dance_reset(qk_tap_dance_state_t *state, void *user_data);
 
-void on_dance_z(qk_tap_dance_state_t *state, void *user_data) {
+void on_dance(qk_tap_dance_state_t *state, void *user_data) {
+    uint16_t keycode = (uint16_t)user_data;
+
     if(state->count == 3) {
-        tap_code16(KC_Z);
-        tap_code16(KC_Z);
-        tap_code16(KC_Z);
+        tap_code16(keycode);
+        tap_code16(keycode);
+        tap_code16(keycode);
     }
     if(state->count > 3) {
-        tap_code16(KC_Z);
+        tap_code16(keycode);
     }
 }
 
-void dance_z_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state[0].step = dance_step(state);
-    switch (dance_state[0].step) {
-        case SINGLE_TAP: register_code16(KC_Z); break;
-        case DOUBLE_TAP: register_code16(KC_Z); register_code16(KC_Z); break;
-        case DOUBLE_HOLD: register_code16(LGUI(KC_Z)); break;
-        case DOUBLE_SINGLE_TAP: tap_code16(KC_Z); register_code16(KC_Z);
+void dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+    uint16_t keycode = (uint16_t)user_data;
+    
+    dance_state[keycode].step = dance_step(state);
+    switch (dance_state[keycode].step) {
+        case SINGLE_TAP: register_code16(keycode); break;
+        case DOUBLE_TAP: register_code16(keycode); register_code16(keycode); break;
+        case DOUBLE_HOLD: register_code16(LGUI(keycode)); break;
+        case DOUBLE_SINGLE_TAP: tap_code16(keycode); register_code16(keycode);
     }
 }
 
-void dance_z_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_reset(qk_tap_dance_state_t *state, void *user_data) {
+    uint16_t keycode = (uint16_t)user_data;
+
     wait_ms(10);
-    switch (dance_state[0].step) {
-        case SINGLE_TAP: unregister_code16(KC_Z); break;
-        case DOUBLE_TAP: unregister_code16(KC_Z); break;
-        case DOUBLE_HOLD: unregister_code16(LGUI(KC_Z)); break;
-        case DOUBLE_SINGLE_TAP: unregister_code16(KC_Z); break;
+    switch (dance_state[keycode].step) {
+        case SINGLE_TAP: unregister_code16(keycode); break;
+        case DOUBLE_TAP: unregister_code16(keycode); break;
+        case DOUBLE_HOLD: unregister_code16(LGUI(keycode)); break;
+        case DOUBLE_SINGLE_TAP: unregister_code16(keycode); break;
     }
-    dance_state[0].step = 0;
-}
-
-void on_dance_x(qk_tap_dance_state_t *state, void *user_data);
-void dance_x_finished(qk_tap_dance_state_t *state, void *user_data);
-void dance_x_reset(qk_tap_dance_state_t *state, void *user_data);
-
-void on_dance_x(qk_tap_dance_state_t *state, void *user_data) {
-    if(state->count == 3) {
-        tap_code16(KC_X);
-        tap_code16(KC_X);
-        tap_code16(KC_Z);
-    }
-    if(state->count > 3) {
-        tap_code16(KC_X);
-    }
-}
-
-void dance_x_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state[0].step = dance_step(state);
-    switch (dance_state[0].step) {
-        case SINGLE_TAP: register_code16(KC_X); break;
-        case DOUBLE_TAP: register_code16(KC_X); register_code16(KC_X); break;
-        case DOUBLE_HOLD: register_code16(LGUI(KC_X)); break;
-        case DOUBLE_SINGLE_TAP: tap_code16(KC_X); register_code16(KC_X);
-    }
-}
-
-void dance_x_reset(qk_tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (dance_state[0].step) {
-        case SINGLE_TAP: unregister_code16(KC_X); break;
-        case DOUBLE_TAP: unregister_code16(KC_X); break;
-        case DOUBLE_HOLD: unregister_code16(LGUI(KC_X)); break;
-        case DOUBLE_SINGLE_TAP: unregister_code16(KC_X); break;
-    }
-    dance_state[0].step = 0;
+    dance_state[keycode].step = 0;
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [DNC_Z] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_z, dance_z_finished, dance_z_reset),
-    [DNC_X] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_x, dance_x_finished, dance_x_reset),
+    [DNC_X] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_X),
+    [DNC_Z] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_Z),
 };
 
 void keyboard_post_init_user(void) {
