@@ -28,7 +28,7 @@ enum tap_dance_codes {
     DNC_Q, DNC_W ,DNC_E , DNC_R ,DNC_T           ,DNC_Y ,DNC_U ,DNC_I   ,DNC_O  ,DNC_P   ,DNC_EQL ,
     DNC_A, DNC_S ,DNC_D , DNC_F ,DNC_G           ,DNC_H ,DNC_J ,DNC_K   ,DNC_L  ,DNC_SCLN,DNC_QUOT,
     DNC_Z, DNC_X ,DNC_C , DNC_V ,DNC_B           ,DNC_N ,DNC_M ,DNC_COMM,DNC_DOT,DNC_SLSH,DNC_GRV ,
-    DNC_SPC,
+    DNC_SPC, DNC_ENT
 };
 
 
@@ -42,11 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ),
 
 [_BASE] = LAYOUT(
-  KC_ESC  ,TD(DNC_1), TD(DNC_2) ,TD(DNC_3) ,TD(DNC_4) ,TD(DNC_5)  ,                     TD(DNC_6) ,TD(DNC_7) ,TD(DNC_8)   ,TD(DNC_9)  ,TD(DNC_0)   ,TD(DNC_MINS),
-  KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                     TD(DNC_Y) ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
-  KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                     TD(DNC_H) ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
-  KC_ENT  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N) ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_GRV) ,
-                      KC_LCTRL  ,KC_LGUI   ,KC_LALT   ,TD(DNC_SPC),KC_LOWER  ,KC_RCTRL ,KC_ENT    ,KC_RALT   ,KC_RAISE    ,KC_RGUI                       
+  KC_ESC  ,TD(DNC_1), TD(DNC_2) ,TD(DNC_3) ,TD(DNC_4) ,TD(DNC_5)  ,                     TD(DNC_6)  ,TD(DNC_7) ,TD(DNC_8)   ,TD(DNC_9)  ,TD(DNC_0)   ,TD(DNC_MINS),
+  KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                     TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
+  KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                     TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
+  KC_ENT  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_GRV) ,
+                      KC_LCTRL  ,KC_LGUI   ,KC_LALT   ,TD(DNC_SPC),KC_LOWER  ,KC_RCTRL ,TD(DNC_ENT),KC_RALT   ,KC_RAISE    ,KC_RGUI                       
 ),
 
 [_LOWER] = LAYOUT(
@@ -288,6 +288,33 @@ void dance_spc_reset(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[keycode].step = 0;
 }
 
+void dance_ent_finished(qk_tap_dance_state_t *state, void *user_data) {
+    uint16_t keycode = (uint16_t)user_data;
+    
+    dance_state[keycode].step = dance_step(state);
+    switch (dance_state[keycode].step) {
+        case SINGLE_TAP: register_code16(keycode); break;
+        case SINGLE_HOLD: register_code16(KC_RSFT); break;
+        case DOUBLE_TAP: register_code16(keycode); register_code16(keycode); break;
+        case DOUBLE_HOLD: register_code16(RGUI(keycode)); break;
+        case DOUBLE_SINGLE_TAP: tap_code16(keycode); register_code16(keycode);
+    }
+}
+
+void dance_ent_reset(qk_tap_dance_state_t *state, void *user_data) {
+    uint16_t keycode = (uint16_t)user_data;
+
+    wait_ms(10);
+    switch (dance_state[keycode].step) {
+        case SINGLE_TAP: unregister_code16(keycode); break;
+        case SINGLE_HOLD: unregister_code16(KC_RSFT); break;
+        case DOUBLE_TAP: unregister_code16(keycode); break;
+        case DOUBLE_HOLD: unregister_code16(RGUI(keycode)); break;
+        case DOUBLE_SINGLE_TAP: unregister_code16(keycode); break;
+    }
+    dance_state[keycode].step = 0;
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [DNC_1] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_1),
     [DNC_2] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_2),
@@ -334,6 +361,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [DNC_SLSH] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_SLSH),
     [DNC_GRV] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_GRV),
     [DNC_SPC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_spc_finished, dance_spc_reset, KC_SPC),
+    [DNC_ENT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ent_finished, dance_ent_reset, KC_ENT),
 };
 
 void keyboard_post_init_user(void) {
