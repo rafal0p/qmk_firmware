@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                     TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
   KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                     TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
   KC_GRV  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_BSLS),
-                      KC_LCTRL  ,KC_LGUI   ,KC_LSFT   ,TD(DNC_SPC),KC_LOWER  ,KC_RCTRL ,TD(DNC_ENT),KC_RALT   ,KC_RAISE    ,KC_RGUI                               
+                      KC_LCTRL  ,KC_LGUI   ,KC_LSFT   ,TD(DNC_SPC),KC_LOWER  ,KC_RAISE ,TD(DNC_ENT),KC_RALT   ,KC_RAISE    ,KC_RGUI                               
 ),
 
 [_LOWER] = LAYOUT(
@@ -379,23 +379,32 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             case _LOWER:
                 if (clockwise) {
-                    tap_code(KC_VOLU);
+                    tap_code16(LCTL(KC_TAB));
                 } else {
-                    tap_code(KC_VOLD);
+                    tap_code16(LCTL(LSFT(KC_TAB)));
+                }
+            default:
+                if (clockwise) {
+                    tap_code16(KC_TAB);
+                } else {
+                    tap_code16(KC_GRV);
+                }
+        }
+    } else if (index == 1) {
+        switch (get_highest_layer(layer_state)) {
+            case _RAISE:
+                if (clockwise) {
+                    tap_code16(LSG(KC_Z));
+                } else {
+                    tap_code16(LGUI(KC_Z));
                 }
                 break;
             default:
                 if (clockwise) {
-                    tap_code16(G(KC_RIGHT_BRACKET));
+                    tap_code16(LGUI(KC_RIGHT_BRACKET));
                 } else {
-                    tap_code16(G(KC_LEFT_BRACKET));
+                    tap_code16(LGUI(KC_LEFT_BRACKET));
                 }
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code16(LSG(KC_Z));
-        } else {
-            tap_code16(G(KC_Z));
         }
     }
     return true;
