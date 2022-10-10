@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                     TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
   KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                     TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
   KC_GRV  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_BSLS),
-                      KC_LCTRL  ,KC_LGUI   ,KC_LALT   ,TD(DNC_SPC),KC_LOWER  ,KC_RCTRL ,TD(DNC_ENT),KC_RALT   ,KC_RAISE    ,KC_RGUI                       
+                      KC_LCTRL  ,KC_LGUI   ,KC_LSFT   ,TD(DNC_SPC),KC_LOWER  ,KC_RCTRL ,TD(DNC_ENT),KC_RALT   ,KC_RAISE    ,KC_RGUI                               
 ),
 
 [_LOWER] = LAYOUT(
@@ -267,7 +267,7 @@ void dance_spc_finished(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[keycode].step = dance_step(state);
     switch (dance_state[keycode].step) {
         case SINGLE_TAP: register_code16(keycode); break;
-        case SINGLE_HOLD: register_code16(KC_LSFT); break;
+        case SINGLE_HOLD: register_code16(KC_LALT); break;
         case DOUBLE_TAP: register_code16(keycode); register_code16(keycode); break;
         case DOUBLE_HOLD: register_code16(LGUI(keycode)); break;
         case DOUBLE_SINGLE_TAP: tap_code16(keycode); register_code16(keycode);
@@ -280,7 +280,7 @@ void dance_spc_reset(qk_tap_dance_state_t *state, void *user_data) {
     wait_ms(10);
     switch (dance_state[keycode].step) {
         case SINGLE_TAP: unregister_code16(keycode); break;
-        case SINGLE_HOLD: unregister_code16(KC_LSFT); break;
+        case SINGLE_HOLD: unregister_code16(KC_LALT); break;
         case DOUBLE_TAP: unregister_code16(keycode); break;
         case DOUBLE_HOLD: unregister_code16(LGUI(keycode)); break;
         case DOUBLE_SINGLE_TAP: unregister_code16(keycode); break;
