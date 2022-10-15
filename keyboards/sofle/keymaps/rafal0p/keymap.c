@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                     TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
   KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                     TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
   KC_GRV  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_BSLS),
-                      KC_LCTRL  ,KC_LALT   ,KC_LSFT   ,TD(DNC_SPC),KC_LOWER  ,KC_RAISE ,TD(DNC_ENT),KC_RALT   ,KC_RAISE    ,KC_RGUI                               
+                      KC_LCTRL  ,KC_LALT   ,KC_LSFT   ,TD(DNC_SPC),KC_LOWER  ,KC_RAISE ,TD(DNC_ENT),KC_RALT   ,TT(_RAISE)  ,KC_RGUI                               
 ),
 
 // C(S(G(KC_4))) - macos screenshot
