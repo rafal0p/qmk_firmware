@@ -6,15 +6,10 @@
 
 enum sofle_layers {
     _BASE,
+    _GAME,
     _LOWER,
     _RAISE,
-    _ADJUST,
-};
-
-enum custom_keycodes {
-    KC_LOWER = SAFE_RANGE,
-    KC_RAISE,
-    KC_ADJUST
+    _ADJUST
 };
 
 enum tap_dance_codes {
@@ -36,12 +31,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ),
 
 [_BASE] = LAYOUT(
-  KC_ESC  ,TD(DNC_1), TD(DNC_2) ,TD(DNC_3) ,TD(DNC_4) ,TD(DNC_5)  ,                     TD(DNC_6)  ,TD(DNC_7) ,TD(DNC_8)   ,TD(DNC_9)  ,TD(DNC_0)   ,TD(DNC_MINS),
-  KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                     TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
-  KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                     TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
-  KC_GRV  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,KC_MUTE   ,XXXXXXX  ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_BSLS),
-                      KC_LCTRL  ,KC_LALT   ,KC_LSFT   ,TD(DNC_SPC),KC_LOWER  ,KC_RAISE ,TD(DNC_ENT),KC_RALT   ,TT(_RAISE)  ,KC_RGUI                               
+  KC_ESC  ,TD(DNC_1), TD(DNC_2) ,TD(DNC_3) ,TD(DNC_4) ,TD(DNC_5)  ,                      TD(DNC_6)  ,TD(DNC_7) ,TD(DNC_8)   ,TD(DNC_9)  ,TD(DNC_0)   ,TD(DNC_MINS),
+  KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                      TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
+  KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                      TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
+  KC_GRV  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,TG(_GAME) ,XXXXXXX   ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_BSLS),
+                      KC_LCTRL  ,KC_LALT   ,KC_LSFT   ,TD(DNC_SPC),MO(_LOWER),MO(_RAISE),TD(DNC_ENT),KC_RALT   ,TT(_RAISE)  ,KC_RGUI                               
 ),
+
+[_GAME] = LAYOUT(
+  KC_ESC   ,KC_1   , KC_2    ,KC_3     ,KC_4     ,KC_5     ,                         KC_6   ,KC_7    ,KC_8     ,KC_9  ,KC_0    ,KC_MINS,
+  KC_TAB   ,KC_Q   , KC_W    ,KC_E     ,KC_R     ,KC_T     ,                         KC_Y   ,KC_U    ,KC_I     ,KC_O  ,KC_P    ,KC_EQL ,
+  KC_LSFT  ,KC_A   , KC_S    ,KC_D     ,KC_F     ,KC_G     ,                         KC_H   ,KC_J    ,KC_K     ,KC_L  ,KC_SCLN ,KC_QUOT,
+  KC_ENT   ,KC_Z   , KC_X    ,KC_C     ,KC_V     ,KC_B     , TG(_GAME) , XXXXXXX   , KC_N   ,KC_M    ,KC_COMM  ,KC_DOT,KC_SLSH ,KC_BSLS,
+                     KC_LCTRL,KC_LALT  ,KC_LSFT  ,KC_SPC   , MO(_LOWER), MO(_RAISE), KC_ENT ,KC_RALT ,KC_RCTRL ,KC_RGUI
+), 
 
 // C(S(G(KC_4))) - macos screenshot
 [_LOWER] = LAYOUT(
@@ -66,38 +69,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    _______  ,KC_VOLD  ,KC_MUTE  ,KC_VOLU  ,_______  ,_______  ,
   _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,KC_MPRV  ,KC_MPLY  ,KC_MNXT  ,_______  ,_______  ,
                       _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______                       
-)
+),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_LOWER:
-            if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case KC_RAISE:
-            if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case KC_ADJUST:
-            if (record->event.pressed) {
-                layer_on(_ADJUST);
-            } else {
-                layer_off(_ADJUST);
-            }
-            return false;
-    }
-    return true;
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 typedef struct {
@@ -277,7 +253,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
+  //uprintf("%s string", var);
   //debug_enable=true;
   //debug_matrix=true;
   //debug_keyboard=true;
