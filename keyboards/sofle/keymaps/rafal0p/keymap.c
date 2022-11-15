@@ -19,6 +19,7 @@ enum tap_dance_codes {
     DNC_Z    ,DNC_X   ,DNC_C    ,DNC_V   ,DNC_B           ,DNC_N    ,DNC_M    ,DNC_COMM ,DNC_DOT  ,DNC_SLSH ,DNC_BSLS,
                                           DNC_SPC         ,DNC_ENT  ,
     
+    CDNC_1   ,CDNC_2  ,CDNC_3   ,CDNC_4  ,CDNC_5          ,CDNC_6   ,CDNC_7   ,CDNC_8   ,CDNC_9   ,CDNC_0   ,
     DNC_EXLM ,DNC_AT  ,DNC_HASH ,DNC_DLR ,DNC_PERC        ,DNC_CIRC ,DNC_AMPR ,DNC_ASTR ,DNC_LPRN ,DNC_RPRN ,
               DNC_LBRC,DNC_RBRC ,DNC_LCBR,DNC_RCBR
 };
@@ -52,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // C(S(G(KC_4))) - macos screenshot
 [_LOWER] = LAYOUT(
   QK_BOOT      ,KC_F1       ,KC_F2       ,KC_F3       ,KC_F4       ,KC_F5       ,                  KC_F6       ,KC_F7       ,KC_F8       ,KC_F9       ,KC_F10      ,KC_F11   ,
-  C(S(G(KC_4))),KC_1        ,KC_2        ,KC_3        ,KC_4        ,KC_5        ,                  KC_6        ,KC_7        ,KC_8        ,KC_9        ,KC_0        ,KC_F12   ,
+  C(S(G(KC_4))),TD(CDNC_1)  ,TD(CDNC_2)  ,TD(CDNC_3)  ,TD(CDNC_4)  ,TD(CDNC_5)  ,                  TD(CDNC_6)  ,TD(CDNC_7)  ,TD(CDNC_8)  ,TD(CDNC_9)  ,TD(CDNC_0)  ,KC_F12   ,
   _______      ,TD(DNC_EXLM),TD(DNC_AT)  ,TD(DNC_HASH),TD(DNC_DLR) ,TD(DNC_PERC),                  TD(DNC_CIRC),TD(DNC_AMPR),TD(DNC_ASTR),TD(DNC_LPRN),TD(DNC_RPRN),_______  ,
   _______      ,TD(DNC_ENT) ,TD(DNC_LBRC),TD(DNC_RBRC),TD(DNC_LCBR),TD(DNC_RCBR),_______ ,_______ ,_______     ,_______     ,_______     ,_______     ,KC_BSLS     ,_______  ,
                              _______     ,_______     ,_______     ,_______     ,_______ ,_______ ,_______     ,_______     ,_______     ,_______
@@ -147,6 +148,31 @@ void dance_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: unregister_code16(keycode); break;
         case DOUBLE_TAP: unregister_code16(keycode); break;
         case DOUBLE_HOLD: unregister_code16(LGUI(keycode)); break;
+        case DOUBLE_SINGLE_TAP: unregister_code16(keycode); break;
+    }
+    dance_state[keycode].step = 0;
+}
+
+void dance_ctrl_finished(qk_tap_dance_state_t *state, void *user_data) {
+    uint16_t keycode = (uint16_t)user_data;
+    
+    dance_state[keycode].step = dance_step(state);
+    switch (dance_state[keycode].step) {
+        case SINGLE_TAP: register_code16(keycode); break;
+        case DOUBLE_TAP: register_code16(keycode); register_code16(keycode); break;
+        case DOUBLE_HOLD: register_code16(LCTL(keycode)); break;
+        case DOUBLE_SINGLE_TAP: tap_code16(keycode); register_code16(keycode);
+    }
+}
+
+void dance_ctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
+    uint16_t keycode = (uint16_t)user_data;
+
+    wait_ms(10);
+    switch (dance_state[keycode].step) {
+        case SINGLE_TAP: unregister_code16(keycode); break;
+        case DOUBLE_TAP: unregister_code16(keycode); break;
+        case DOUBLE_HOLD: unregister_code16(LCTL(keycode)); break;
         case DOUBLE_SINGLE_TAP: unregister_code16(keycode); break;
     }
     dance_state[keycode].step = 0;
@@ -266,6 +292,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [DNC_RBRC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_RBRC),
     [DNC_LCBR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_LCBR),
     [DNC_RCBR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_RCBR),
+
+    [CDNC_1] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_1),
+    [CDNC_2] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_2),
+    [CDNC_3] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_3),
+    [CDNC_4] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_4),
+    [CDNC_5] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_5),
+    [CDNC_6] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_6),
+    [CDNC_7] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_7),
+    [CDNC_8] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_8),
+    [CDNC_9] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_9),
+    [CDNC_0] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ctrl_finished, dance_ctrl_reset, KC_0),
 
     [DNC_SPC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_spc_finished, dance_spc_reset, KC_SPC),
     [DNC_ENT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ent_finished, dance_ent_reset, KC_ENT),
