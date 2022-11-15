@@ -13,11 +13,14 @@ enum sofle_layers {
 };
 
 enum tap_dance_codes {
-    DNC_1, DNC_2 ,DNC_3 , DNC_4 ,DNC_5           ,DNC_6 ,DNC_7 ,DNC_8   ,DNC_9  ,DNC_0   ,DNC_MINS,
-    DNC_Q, DNC_W ,DNC_E , DNC_R ,DNC_T           ,DNC_Y ,DNC_U ,DNC_I   ,DNC_O  ,DNC_P   ,DNC_EQL ,
-    DNC_A, DNC_S ,DNC_D , DNC_F ,DNC_G           ,DNC_H ,DNC_J ,DNC_K   ,DNC_L  ,DNC_SCLN,DNC_QUOT,
-    DNC_Z, DNC_X ,DNC_C , DNC_V ,DNC_B           ,DNC_N ,DNC_M ,DNC_COMM,DNC_DOT,DNC_SLSH,DNC_BSLS,
-    DNC_SPC, DNC_ENT
+    DNC_1    ,DNC_2   ,DNC_3    ,DNC_4   ,DNC_5           ,DNC_6    ,DNC_7    ,DNC_8    ,DNC_9    ,DNC_0    ,DNC_MINS,
+    DNC_Q    ,DNC_W   ,DNC_E    ,DNC_R   ,DNC_T           ,DNC_Y    ,DNC_U    ,DNC_I    ,DNC_O    ,DNC_P    ,DNC_EQL ,
+    DNC_A    ,DNC_S   ,DNC_D    ,DNC_F   ,DNC_G           ,DNC_H    ,DNC_J    ,DNC_K    ,DNC_L    ,DNC_SCLN ,DNC_QUOT,
+    DNC_Z    ,DNC_X   ,DNC_C    ,DNC_V   ,DNC_B           ,DNC_N    ,DNC_M    ,DNC_COMM ,DNC_DOT  ,DNC_SLSH ,DNC_BSLS,
+                                          DNC_SPC         ,DNC_ENT  ,
+    
+    DNC_EXLM ,DNC_AT  ,DNC_HASH ,DNC_DLR ,DNC_PERC        ,DNC_CIRC ,DNC_AMPR ,DNC_ASTR ,DNC_LPRN ,DNC_RPRN ,
+              DNC_LBRC,DNC_RBRC ,DNC_LCBR,DNC_RCBR
 };
 
 
@@ -48,11 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // C(S(G(KC_4))) - macos screenshot
 [_LOWER] = LAYOUT(
-  QK_BOOT      ,KC_F1    ,KC_F2    ,KC_F3    ,KC_F4    ,KC_F5    ,                    KC_F6    ,KC_F7    ,KC_F8    ,KC_F9    ,KC_F10   ,KC_F11   ,
-  C(S(G(KC_4))),KC_1     ,KC_2     ,KC_3     ,KC_4     ,KC_5     ,                    KC_6     ,KC_7     ,KC_8     ,KC_9     ,KC_0     ,KC_F12   ,
-  _______      ,KC_EXLM  ,KC_AT    ,KC_HASH  ,KC_DLR   ,KC_PERC  ,                    KC_CIRC  ,KC_AMPR  ,KC_ASTR  ,KC_LPRN  ,KC_RPRN  ,_______  ,
-  KC_ENT       ,KC_ENT   ,KC_LBRC  ,KC_RBRC  ,KC_LCBR  ,KC_RCBR  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,KC_BSLS  ,_______  ,
-                          _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______                       
+  QK_BOOT      ,KC_F1       ,KC_F2       ,KC_F3       ,KC_F4       ,KC_F5       ,                  KC_F6       ,KC_F7       ,KC_F8       ,KC_F9       ,KC_F10      ,KC_F11   ,
+  C(S(G(KC_4))),KC_1        ,KC_2        ,KC_3        ,KC_4        ,KC_5        ,                  KC_6        ,KC_7        ,KC_8        ,KC_9        ,KC_0        ,KC_F12   ,
+  _______      ,TD(DNC_EXLM),TD(DNC_AT)  ,TD(DNC_HASH),TD(DNC_DLR) ,TD(DNC_PERC),                  TD(DNC_CIRC),TD(DNC_AMPR),TD(DNC_ASTR),TD(DNC_LPRN),TD(DNC_RPRN),_______  ,
+  _______      ,TD(DNC_ENT) ,TD(DNC_LBRC),TD(DNC_RBRC),TD(DNC_LCBR),TD(DNC_RCBR),_______ ,_______ ,_______     ,_______     ,_______     ,_______     ,KC_BSLS     ,_______  ,
+                             _______     ,_______     ,_______     ,_______     ,_______ ,_______ ,_______     ,_______     ,_______     ,_______
 ),
 
  [_RAISE] = LAYOUT(
@@ -248,6 +251,22 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [DNC_DOT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_DOT),
     [DNC_SLSH] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_SLSH),
     [DNC_BSLS] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_BSLS),
+
+    [DNC_EXLM] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_EXLM),
+    [DNC_AT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_AT),
+    [DNC_HASH] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_HASH),
+    [DNC_DLR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_DLR),
+    [DNC_PERC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_PERC),
+    [DNC_CIRC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_CIRC),
+    [DNC_AMPR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_AMPR),
+    [DNC_ASTR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_ASTR),
+    [DNC_LPRN] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_LPRN),
+    [DNC_RPRN] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_RPRN),
+    [DNC_LBRC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_LBRC),
+    [DNC_RBRC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_RBRC),
+    [DNC_LCBR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_LCBR),
+    [DNC_RCBR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_RCBR),
+
     [DNC_SPC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_spc_finished, dance_spc_reset, KC_SPC),
     [DNC_ENT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_ent_finished, dance_ent_reset, KC_ENT),
 };
