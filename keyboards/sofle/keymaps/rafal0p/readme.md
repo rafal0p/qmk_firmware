@@ -1,19 +1,14 @@
-![SofleKeyboard default keymap](https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/soflekeyboard.png)
-![SofleKeyboard adjust layer](https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/soflekeyboard_layout_adjust.png)
-
-
-# Default keymap for Sofle Keyboard
-
-Layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/gists/76efb423a46cbbea75465cb468eef7ff) and [adjust layer](http://www.keyboard-layout-editor.com/#/gists/4bcf66f922cfd54da20ba04905d56bd4)
-
-
+# Personal keymap for Sofle Keyboard rev1
 Features:
 
-- Symmetric modifiers (CMD/Super, Alt/Opt, Ctrl, Shift)
-- Various modes, can be switched (using Adjust layer and the selected one is stored in EEPROM.
-- Modes for Qwerty and Colemak support
-- Modes for Mac vs Linux/Win support -> different order of modifiers and different action shortcuts on the "UPPER" layer (the red one in the image). Designed to simplify transtions when switching between operating systems often.
-- The OLED on master half shows selected mode and caps lock state and is rotated.
-- Left encoder controls volume up/down/mute. Right encoder PGUP/PGDOWN.
-
-
+- most keys after **double click** + hold send **GUI+key** combination (example - double clicking **A** results in **GUI+A**). It is super useful for macos users
+- navi layer with:
+  - `jkl;` arrows 
+  - `h` as backspace and `'` as delete (isn't backspace just a left arrow hungry for letters?)
+  - row below `jkl;` with "bigger" version of appropriate action (left arrow - home, down - pg down etc)
+- `_` in the same place as space, just on different layer
+- encoders with actions done more often than vol up/down:
+  - left encoder switching applications or tabs depending on layer
+  - right encoder going back'n'forth in history (back/forward) or in _time_ (undo/redo)
+- gaming layer without tapdances
+- pretty readable `keymap.c`
