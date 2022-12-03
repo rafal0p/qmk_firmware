@@ -27,6 +27,7 @@ enum tap_dance_codes {
               DNC_LBRC,DNC_RBRC ,DNC_LCBR,DNC_RCBR
 };
 
+#define SCRSHT C(S(G(KC_4)))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // [_TEMPLATE] = LAYOUT(
@@ -54,13 +55,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      KC_LCTRL,KC_LALT  ,KC_LSFT  ,KC_SPC   , MO(_LOWER), MO(_RAISE), KC_ENT ,KC_RALT ,KC_RCTRL ,KC_RGUI
 ),
 
-// C(S(G(KC_4))) - macos screenshot
 [_LOWER] = LAYOUT(
-  QK_BOOT      ,KC_F1       ,KC_F2       ,KC_F3       ,KC_F4       ,KC_F5       ,                  KC_F6       ,KC_F7       ,KC_F8       ,KC_F9       ,KC_F10      ,KC_F11   ,
-  C(S(G(KC_4))),TD(CDNC_1)  ,TD(CDNC_2)  ,TD(CDNC_3)  ,TD(CDNC_4)  ,TD(CDNC_5)  ,                  TD(CDNC_6)  ,TD(CDNC_7)  ,TD(CDNC_8)  ,TD(CDNC_9)  ,TD(CDNC_0)  ,KC_F12   ,
-  _______      ,TD(DNC_EXLM),TD(DNC_AT)  ,TD(DNC_HASH),TD(DNC_DLR) ,TD(DNC_PERC),                  TD(DNC_CIRC),TD(DNC_AMPR),TD(DNC_ASTR),TD(DNC_LPRN),TD(DNC_RPRN),_______  ,
-  _______      ,TD(DNC_ENT) ,TD(DNC_LBRC),TD(DNC_RBRC),TD(DNC_LCBR),TD(DNC_RCBR),_______ ,_______ ,_______     ,_______     ,_______     ,_______     ,KC_BSLS     ,_______  ,
-                             _______     ,_______     ,_______     ,_______     ,_______ ,_______ ,_______     ,_______     ,_______     ,_______
+  QK_BOOT ,KC_F1       ,KC_F2       ,KC_F3       ,KC_F4       ,KC_F5       ,                  KC_F6       ,KC_F7       ,KC_F8       ,KC_F9       ,KC_F10      ,KC_F11   ,
+  SCRSHT  ,TD(CDNC_1)  ,TD(CDNC_2)  ,TD(CDNC_3)  ,TD(CDNC_4)  ,TD(CDNC_5)  ,                  TD(CDNC_6)  ,TD(CDNC_7)  ,TD(CDNC_8)  ,TD(CDNC_9)  ,TD(CDNC_0)  ,KC_F12   ,
+  _______ ,TD(DNC_EXLM),TD(DNC_AT)  ,TD(DNC_HASH),TD(DNC_DLR) ,TD(DNC_PERC),                  TD(DNC_CIRC),TD(DNC_AMPR),TD(DNC_ASTR),TD(DNC_LPRN),TD(DNC_RPRN),_______  ,
+  _______ ,TD(DNC_ENT) ,TD(DNC_LBRC),TD(DNC_RBRC),TD(DNC_LCBR),TD(DNC_RCBR),_______ ,_______ ,_______     ,_______     ,_______     ,_______     ,KC_BSLS     ,_______  ,
+                        _______     ,_______     ,_______     ,_______     ,_______ ,_______ ,_______     ,_______     ,_______     ,_______
 ),
 
  [_RAISE] = LAYOUT(
