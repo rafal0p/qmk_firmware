@@ -5,7 +5,7 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
-#define TAPPING_TOGGLE 1
+#define TAPPING_TOGGLE 3
 #ifdef TAPPING_TERM
     #undef TAPPING_TERM
     #define TAPPING_TERM 200
