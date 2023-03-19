@@ -92,6 +92,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+const uint16_t PROGMEM combo_df[] = { TD(DNC_D), TD(DNC_F), COMBO_END};
+const uint16_t PROGMEM combo_sd[] = { TD(DNC_S), TD(DNC_D), COMBO_END};
+const uint16_t PROGMEM combo_as[] = { TD(DNC_A), TD(DNC_S), COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(combo_df, OSM_LGUI),
+    COMBO(combo_sd, OSM_LALT),
+    COMBO(combo_as, OSM_LCTRL),
+};
+
 typedef struct {
     bool    is_press_action;
     uint8_t step;
