@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                        TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
   KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                        TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
   KC_GRV  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,TG(_GAME)  ,XXXXXXX    ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_BSLS),
-                      _______   ,_______   ,OSM_LSFT  ,TD(DNC_SPC),OSL(_LOWER),_______    ,TD(DNC_ENT),OSM_RALT  ,OSL(_RAISE) ,_______
+                      _______  ,OSL(_LOWER),OSM_LSFT  ,TD(DNC_SPC),OSL(_LOWER),_______    ,TD(DNC_ENT),OSM_RALT  ,OSL(_RAISE) ,_______
 ),
 
 // needs be before LOWER and RAISE to make them work also on this laer
@@ -99,6 +99,9 @@ const uint16_t PROGMEM combo_jk[] = { TD(DNC_J), TD(DNC_K), COMBO_END};
 const uint16_t PROGMEM combo_jl[] = { TD(DNC_J), TD(DNC_L), COMBO_END};
 const uint16_t PROGMEM combo_jscln[] = { TD(DNC_J), TD(DNC_SCLN), COMBO_END};
 
+const uint16_t PROGMEM combo_lower_left[] = { TD(DNC_F), OSM_LSFT, COMBO_END};
+const uint16_t PROGMEM combo_lower_right[] = { TD(DNC_J), OSM_RALT, COMBO_END};
+
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_df, OSM_LGUI),
     COMBO(combo_sf, OSM_LALT),
@@ -107,6 +110,9 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_jk, OSM_RGUI),
     COMBO(combo_jl, OSM_RALT),
     COMBO(combo_jscln, OSM_RCTRL),
+
+    COMBO(combo_lower_left, OSL(_LOWER)),
+    COMBO(combo_lower_right, OSL(_LOWER)),
 };
 
 typedef struct {
