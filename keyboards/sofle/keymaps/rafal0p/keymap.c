@@ -95,11 +95,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM combo_df[] = { TD(DNC_D), TD(DNC_F), COMBO_END};
 const uint16_t PROGMEM combo_sf[] = { TD(DNC_S), TD(DNC_F), COMBO_END};
 const uint16_t PROGMEM combo_af[] = { TD(DNC_A), TD(DNC_F), COMBO_END};
+const uint16_t PROGMEM combo_jk[] = { TD(DNC_J), TD(DNC_K), COMBO_END};
+const uint16_t PROGMEM combo_jl[] = { TD(DNC_J), TD(DNC_L), COMBO_END};
+const uint16_t PROGMEM combo_jscln[] = { TD(DNC_J), TD(DNC_SCLN), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_df, OSM_LGUI),
     COMBO(combo_sf, OSM_LALT),
     COMBO(combo_af, OSM_LCTRL),
+
+    COMBO(combo_jk, OSM_RGUI),
+    COMBO(combo_jl, OSM_RALT),
+    COMBO(combo_jscln, OSM_RCTRL),
 };
 
 typedef struct {
