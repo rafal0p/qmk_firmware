@@ -12,3 +12,4 @@ for more options.
 #endif
 
 #define COMBO_COUNT 8
+#define COMBO_ONLY_FROM_LAYER 0
