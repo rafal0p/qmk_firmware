@@ -36,6 +36,7 @@ enum tap_dance_codes {
 #define OSM_RGUI OSM(MOD_RGUI)
 #define OSM_LSFT OSM(MOD_LSFT)
 #define OSM_RSFT OSM(MOD_RSFT)
+#define OSM_MEH OSM(MOD_MEH)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // [_TEMPLATE] = LAYOUT(
@@ -51,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB  ,TD(DNC_Q), TD(DNC_W) ,TD(DNC_E) ,TD(DNC_R) ,TD(DNC_T)  ,                        TD(DNC_Y)  ,TD(DNC_U) ,TD(DNC_I)   ,TD(DNC_O)  ,TD(DNC_P)   ,TD(DNC_EQL) ,
   KC_BSPC ,TD(DNC_A), TD(DNC_S) ,TD(DNC_D) ,TD(DNC_F) ,TD(DNC_G)  ,                        TD(DNC_H)  ,TD(DNC_J) ,TD(DNC_K)   ,TD(DNC_L)  ,TD(DNC_SCLN),TD(DNC_QUOT),
   KC_GRV  ,TD(DNC_Z), TD(DNC_X) ,TD(DNC_C) ,TD(DNC_V) ,TD(DNC_B)  ,TG(_GAME)  ,XXXXXXX    ,TD(DNC_N)  ,TD(DNC_M) ,TD(DNC_COMM),TD(DNC_DOT),TD(DNC_SLSH),TD(DNC_BSLS),
-                      _______  ,OSL(_LOWER),OSM_LSFT  ,TD(DNC_SPC),OSL(_LOWER),_______    ,TD(DNC_ENT),OSM_RALT  ,OSL(_RAISE) ,_______
+                      OSM_MEH  ,OSL(_LOWER),OSM_LSFT  ,TD(DNC_SPC),OSL(_LOWER),_______    ,TD(DNC_ENT),OSM_RALT  ,OSL(_RAISE) ,_______
 ),
 
 // needs be before LOWER and RAISE to make them work also on this laer
