@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB   ,KC_Q   , KC_W    ,KC_E     ,KC_R     ,KC_T     ,                         KC_Y   ,KC_U    ,KC_I     ,KC_O  ,KC_P    ,KC_EQL ,
   KC_LSFT  ,KC_A   , KC_S    ,KC_D     ,KC_F     ,KC_G     ,                         KC_H   ,KC_J    ,KC_K     ,KC_L  ,KC_SCLN ,KC_QUOT,
   KC_ENT   ,KC_Z   , KC_X    ,KC_C     ,KC_V     ,KC_B     , TG(_GAME) , XXXXXXX   , KC_N   ,KC_M    ,KC_COMM  ,KC_DOT,KC_SLSH ,KC_BSLS,
-                     KC_LCTRL,KC_LALT  ,KC_LSFT  ,KC_SPC   , MO(_LOWER), MO(_RAISE), KC_ENT ,KC_RALT ,KC_RCTRL ,KC_RGUI
+                     KC_LCTL ,KC_LALT  ,KC_LSFT  ,KC_SPC   , MO(_LOWER), MO(_RAISE), KC_ENT ,KC_RALT ,KC_RCTL  ,KC_RGUI
 ),
 
 [_LOWER] = LAYOUT(
@@ -133,9 +133,9 @@ enum {
 // 69 = KC_F12, nobody should ever need to dance higher
 static tap dance_state[69];
 
-uint8_t dance_step(qk_tap_dance_state_t *state);
+uint8_t dance_step(tap_dance_state_t *state);
 
-uint8_t dance_step(qk_tap_dance_state_t *state) {
+uint8_t dance_step(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return SINGLE_TAP;
         else return SINGLE_HOLD;
@@ -147,11 +147,11 @@ uint8_t dance_step(qk_tap_dance_state_t *state) {
     return MORE_TAPS;
 }
 
-void on_dance(qk_tap_dance_state_t *state, void *user_data);
-void dance_finished(qk_tap_dance_state_t *state, void *user_data);
-void dance_reset(qk_tap_dance_state_t *state, void *user_data);
+void on_dance(tap_dance_state_t *state, void *user_data);
+void dance_finished(tap_dance_state_t *state, void *user_data);
+void dance_reset(tap_dance_state_t *state, void *user_data);
 
-void on_dance(qk_tap_dance_state_t *state, void *user_data) {
+void on_dance(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     if (state->count == 3) {
@@ -164,7 +164,7 @@ void on_dance(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_finished(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     dance_state[keycode].step = dance_step(state);
@@ -176,7 +176,7 @@ void dance_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_reset(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     wait_ms(10);
@@ -189,7 +189,7 @@ void dance_reset(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[keycode].step = 0;
 }
 
-void dance_ctrl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_ctrl_finished(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     dance_state[keycode].step = dance_step(state);
@@ -201,7 +201,7 @@ void dance_ctrl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_ctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_ctrl_reset(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     wait_ms(10);
@@ -214,7 +214,7 @@ void dance_ctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[keycode].step = 0;
 }
 
-void dance_spc_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_spc_finished(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     dance_state[keycode].step = dance_step(state);
@@ -227,7 +227,7 @@ void dance_spc_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_spc_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_spc_reset(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     wait_ms(10);
@@ -241,7 +241,7 @@ void dance_spc_reset(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[keycode].step = 0;
 }
 
-void dance_ent_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_ent_finished(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     dance_state[keycode].step = dance_step(state);
@@ -254,7 +254,7 @@ void dance_ent_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_ent_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_ent_reset(tap_dance_state_t *state, void *user_data) {
     uint16_t keycode = (uint16_t)user_data;
 
     wait_ms(10);
@@ -268,7 +268,7 @@ void dance_ent_reset(qk_tap_dance_state_t *state, void *user_data) {
     dance_state[keycode].step = 0;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [DNC_1] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_1),
     [DNC_2] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_2),
     [DNC_3] = ACTION_TAP_DANCE_FN_ADVANCED_USER(on_dance, dance_finished, dance_reset, KC_3),
