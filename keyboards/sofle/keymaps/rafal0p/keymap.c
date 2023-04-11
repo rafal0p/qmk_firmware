@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_RAISE] = LAYOUT(
   _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    _______  ,_______  ,_______  ,_______  ,_______  ,QK_BOOT  ,
-  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    KC_TAB   ,OSM_RSFT ,OSM_RALT ,OSM_RCTRL,OSM_RGUI ,_______  ,
+  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    KC_TAB   ,OSM_RSFT ,OSM_LALT ,OSM_RCTRL,OSM_RGUI ,_______  ,
   _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    KC_BSPC  ,KC_LEFT  ,KC_DOWN  ,KC_UP    ,KC_RGHT  ,KC_DEL   ,
   _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,C(KC_A)  ,KC_PGDN  ,KC_PGUP  ,C(KC_E)  ,_______  ,
                       _______  ,_______  ,_______  ,KC_UNDS  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______
@@ -109,7 +109,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_af, OSM_LCTRL),
 
     COMBO(combo_jk, OSM_RGUI),
-    COMBO(combo_jl, OSM_RALT),
+    COMBO(combo_jl, OSM_LALT),
     COMBO(combo_jscln, OSM_RCTRL),
 
     COMBO(combo_lower_left, OSL(_LOWER)),
