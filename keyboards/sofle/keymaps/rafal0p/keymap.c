@@ -9,7 +9,8 @@ enum sofle_layers {
     _GAME,
     _LOWER,
     _RAISE,
-    _ADJUST
+    _ADJUST,
+    _NUMPAD
 };
 
 // DNC_1 sends "1" on tap and GUI+1 on double tap and hold
@@ -87,6 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,KC_MPRV  ,KC_MPLY  ,KC_MNXT  ,_______  ,_______  ,
                       _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______
 ),
+
+[_NUMPAD] = LAYOUT(
+  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,
+  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    KC_PSLS  ,KC_7     ,KC_8     ,KC_9     ,KC_PMNS  ,_______  ,
+  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    KC_PAST  ,KC_4     ,KC_5     ,KC_6     ,KC_PPLS  ,_______  ,
+  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,KC_1     ,KC_2     ,KC_3     ,KC_PDOT  ,_______  ,
+                      _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,KC_0     ,_______  ,_______
+),
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -102,6 +111,7 @@ const uint16_t PROGMEM combo_jscln[] = { TD(DNC_J), TD(DNC_SCLN), COMBO_END};
 
 const uint16_t PROGMEM combo_lower_left[] = { TD(DNC_F), OSM_LSFT, COMBO_END};
 const uint16_t PROGMEM combo_lower_right[] = { TD(DNC_J), OSM_RALT, COMBO_END};
+const uint16_t PROGMEM combo_numpad[] = { TD(DNC_K), OSL(_RAISE), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_df, OSM_LGUI),
@@ -114,6 +124,7 @@ combo_t key_combos[COMBO_COUNT] = {
 
     COMBO(combo_lower_left, OSL(_LOWER)),
     COMBO(combo_lower_right, OSL(_LOWER)),
+    COMBO(combo_numpad, MO(_NUMPAD)),
 };
 
 typedef struct {
