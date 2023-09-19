@@ -370,20 +370,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             case _LOWER:
                 if (clockwise) {
-                    tap_code16(LCTL(KC_TAB));
+                    tap_code16(LSG(KC_Z));
                 } else {
-                    tap_code16(LCTL(LSFT(KC_TAB)));
+                    tap_code16(LGUI(KC_Z));
                 }
+                break;
             default:
                 if (clockwise) {
-                    tap_code16(KC_TAB);
+                    tap_code16(LGUI(KC_RIGHT_BRACKET));
                 } else {
-                    tap_code16(LSFT(KC_TAB));
+                    tap_code16(LGUI(KC_LEFT_BRACKET));
                 }
         }
     } else if (index == 1) {
         switch (get_highest_layer(layer_state)) {
-            case _RAISE:
+            case _LOWER:
                 if (clockwise) {
                     tap_code16(LSG(KC_Z));
                 } else {
