@@ -2,6 +2,7 @@
 Features:
 
 - most keys after **double click** + hold send **GUI+key** combination (example - double clicking **A** results in **GUI+A**). It is super useful for macos users
+- home row combos with GUI, ALT, CTRL modifiers
 - navi layer with:
   - `jkl;` arrows 
   - `h` as backspace and `'` as delete (isn't backspace just a left arrow hungry for letters?)
