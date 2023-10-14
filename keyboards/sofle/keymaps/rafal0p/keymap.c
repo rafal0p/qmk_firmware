@@ -90,11 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUMPAD] = LAYOUT(
-  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,
-  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    KC_PAST  ,KC_7     ,KC_8     ,KC_9     ,KC_PPLS  ,_______  ,
-  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,                    KC_PSLS  ,KC_4     ,KC_5     ,KC_6     ,KC_PMNS  ,_______  ,
-  _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,KC_BSPC  ,KC_1     ,KC_2     ,KC_3     ,KC_PDOT  ,KC_COMM  ,
-                      _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,_______  ,KC_0     ,_______  ,_______
+  _______  ,_______  ,_______ ,_______ ,_______ ,_______ ,                    _______  ,_______  ,_______  ,_______  ,_______  ,_______  ,
+  _______  ,_______  ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,                    KC_PAST  ,KC_7     ,KC_8     ,KC_9     ,KC_PPLS  ,_______  ,
+  _______  ,_______  ,KC_F4   ,KC_F5   ,KC_F6   ,KC_F11  ,                    KC_PSLS  ,KC_4     ,KC_5     ,KC_6     ,KC_PMNS  ,_______  ,
+  _______  ,_______  ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F12  ,_______  ,_______  ,KC_BSPC  ,KC_1     ,KC_2     ,KC_3     ,KC_PDOT  ,KC_COMM  ,
+                      _______ ,_______ ,_______ ,_______ ,_______  ,_______  ,_______  ,KC_0     ,_______  ,_______
 ),
 };
 
@@ -110,10 +110,11 @@ const uint16_t PROGMEM combo_jl[] = { TD(DNC_J), TD(DNC_L), COMBO_END};
 const uint16_t PROGMEM combo_jscln[] = { TD(DNC_J), TD(DNC_SCLN), COMBO_END};
 
 const uint16_t PROGMEM combo_lower_right[] = { TD(DNC_J), OSM_RALT, COMBO_END};
-const uint16_t PROGMEM combo_numpad[] = { TD(DNC_K), OSL(_RAISE), COMBO_END};
+const uint16_t PROGMEM combo_numpad_l[] = { TD(DNC_D), OSL(_LOWER), COMBO_END};
+const uint16_t PROGMEM combo_numpad_r[] = { TD(DNC_K), OSL(_RAISE), COMBO_END};
 const uint16_t PROGMEM combo_meh[] = { TD(DNC_F), OSM_LSFT, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[10] = {
     COMBO(combo_df, OSM_LGUI),
     COMBO(combo_sf, OSM_LALT),
     COMBO(combo_af, OSM_LCTRL),
@@ -123,7 +124,8 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_jscln, OSM_RCTRL),
 
     COMBO(combo_lower_right, OSL(_LOWER)),
-    COMBO(combo_numpad, MO(_NUMPAD)),
+    COMBO(combo_numpad_l, MO(_NUMPAD)),
+    COMBO(combo_numpad_r, MO(_NUMPAD)),
     COMBO(combo_meh, OSM_MEH),
 };
 
