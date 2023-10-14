@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   SCRSHT  ,TD(CDNC_1)  ,TD(CDNC_2)  ,TD(CDNC_3)  ,TD(CDNC_4)  ,TD(CDNC_5)  ,                  TD(CDNC_6)  ,TD(CDNC_7)  ,TD(CDNC_8)  ,TD(CDNC_9)  ,TD(CDNC_0)  ,TD(DNC_EQL)  ,
   KC_BSPC ,TD(DNC_EXLM),TD(DNC_AT)  ,TD(DNC_HASH),TD(DNC_DLR) ,TD(DNC_PERC),                  TD(DNC_CIRC),TD(DNC_AMPR),TD(DNC_ASTR),TD(DNC_LPRN),TD(DNC_RPRN),TD(DNC_MINS) ,
   _______ ,TD(DNC_ENT) ,TD(DNC_LBRC),TD(DNC_RBRC),TD(DNC_LCBR),TD(DNC_RCBR),_______ ,_______ ,_______     ,_______     ,_______     ,_______     ,KC_BSLS     ,KC_F12       ,
-                        _______     ,_______     ,_______     ,_______     ,_______ ,_______ ,_______     ,_______     ,_______     ,_______
+                        _______     ,_______     ,_______     ,KC_PMNS     ,_______ ,_______ ,_______     ,_______     ,_______     ,_______
 ),
 
  [_RAISE] = LAYOUT(
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______  ,_______  ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,                    KC_PAST  ,KC_7     ,KC_8     ,KC_9     ,KC_PPLS  ,_______  ,
   _______  ,_______  ,KC_F4   ,KC_F5   ,KC_F6   ,KC_F11  ,                    KC_PSLS  ,KC_4     ,KC_5     ,KC_6     ,KC_PMNS  ,_______  ,
   _______  ,_______  ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F12  ,_______  ,_______  ,KC_BSPC  ,KC_1     ,KC_2     ,KC_3     ,KC_PDOT  ,KC_COMM  ,
-                      _______ ,_______ ,_______ ,_______ ,_______  ,_______  ,_______  ,KC_0     ,_______  ,_______
+                      _______ ,_______ ,_______ ,KC_PMNS ,_______  ,_______  ,_______  ,KC_0     ,_______  ,_______
 ),
 };
 
