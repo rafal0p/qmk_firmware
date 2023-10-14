@@ -114,7 +114,7 @@ const uint16_t PROGMEM combo_numpad_l[] = { TD(DNC_D), OSL(_LOWER), COMBO_END};
 const uint16_t PROGMEM combo_numpad_r[] = { TD(DNC_K), OSL(_RAISE), COMBO_END};
 const uint16_t PROGMEM combo_meh[] = { TD(DNC_F), OSM_LSFT, COMBO_END};
 
-combo_t key_combos[10] = {
+combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_df, OSM_LGUI),
     COMBO(combo_sf, OSM_LALT),
     COMBO(combo_af, OSM_LCTRL),

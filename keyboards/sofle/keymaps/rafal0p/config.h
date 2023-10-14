@@ -11,5 +11,5 @@ for more options.
     #define TAPPING_TERM 200
 #endif
 
-#define COMBO_COUNT 9
+#define COMBO_COUNT 10
 #define COMBO_ONLY_FROM_LAYER 0
