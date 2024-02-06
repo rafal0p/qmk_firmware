@@ -102,6 +102,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+// home row combos
 const uint16_t PROGMEM combo_df[] = { TD(DNC_D), TD(DNC_F), COMBO_END};
 const uint16_t PROGMEM combo_sf[] = { TD(DNC_S), TD(DNC_F), COMBO_END};
 const uint16_t PROGMEM combo_af[] = { TD(DNC_A), TD(DNC_F), COMBO_END};
@@ -109,6 +110,15 @@ const uint16_t PROGMEM combo_jk[] = { TD(DNC_J), TD(DNC_K), COMBO_END};
 const uint16_t PROGMEM combo_jl[] = { TD(DNC_J), TD(DNC_L), COMBO_END};
 const uint16_t PROGMEM combo_jscln[] = { TD(DNC_J), TD(DNC_SCLN), COMBO_END};
 
+// making outside rows redundant
+const uint16_t PROGMEM combo_qw[] = { TD(DNC_Q), TD(DNC_W), COMBO_END};
+const uint16_t PROGMEM combo_as[] = { TD(DNC_A), TD(DNC_S), COMBO_END};
+const uint16_t PROGMEM combo_zx[] = { TD(DNC_Z), TD(DNC_X), COMBO_END};
+const uint16_t PROGMEM combo_op[] = { TD(DNC_O), TD(DNC_P), COMBO_END};
+const uint16_t PROGMEM combo_lscln[] = { TD(DNC_L), TD(DNC_SCLN), COMBO_END};
+const uint16_t PROGMEM combo_dotslsh[] = { TD(DNC_DOT), TD(DNC_SLSH), COMBO_END};
+
+// layers
 const uint16_t PROGMEM combo_lower_right[] = { TD(DNC_J), OSM_RALT, COMBO_END};
 const uint16_t PROGMEM combo_numpad_l[] = { TD(DNC_D), OSL(_LOWER), COMBO_END};
 const uint16_t PROGMEM combo_numpad_r[] = { TD(DNC_K), OSL(_RAISE), COMBO_END};
@@ -118,10 +128,16 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_df, OSM_LGUI),
     COMBO(combo_sf, OSM_LALT),
     COMBO(combo_af, OSM_LCTRL),
-
     COMBO(combo_jk, OSM_RGUI),
     COMBO(combo_jl, OSM_LALT),
     COMBO(combo_jscln, OSM_RCTRL),
+
+    COMBO(combo_qw, KC_ESC),
+    COMBO(combo_as, KC_TAB),
+    COMBO(combo_zx, KC_GRV),
+    COMBO(combo_op, TD(DNC_EQL)),
+    COMBO(combo_lscln, TD(DNC_QUOT)),
+    COMBO(combo_dotslsh, TD(DNC_BSLS)),
 
     COMBO(combo_lower_right, OSL(_LOWER)),
     COMBO(combo_numpad_l, MO(_NUMPAD)),
